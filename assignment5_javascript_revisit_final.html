@@ -1,0 +1,679 @@
+<html>
+    
+    <head>
+     <script>
+      
+      //TEAM: Maxime Thivierge and Jeremy Armstrong
+      
+      var arrayArray = [];
+      
+      //saves an array to a bigger array,lists it out
+      
+      function saveArray(){
+        if(document.getElementById("BoxPerimeter").value == "Perimeter" || document.getElementById("BoxPerimeter").value == "Surface Area"){
+            alert("Try making a calculation first.");
+        }
+        else if(document.getElementById("BoxName").value === ""){
+           alert("Give your shape a name!");
+        }
+        else{
+        document.getElementById("explainer_id").innerHTML = "| Name | Perimeter / Surface Area | Area / Volume |";
+        document.getElementById("arrays_id").innerHTML = "";
+        var i = 0;
+        var shapeName = document.getElementById("BoxName").value;
+        var perimeter = Math.round(document.getElementById("BoxPerimeter").value*100)/100;
+        var area = Math.round(document.getElementById("BoxArea").value*100)/100;
+        var newArray = [shapeName, perimeter, area];
+        arrayArray.push(newArray);
+        
+        while(i < arrayArray.length){
+        document.getElementById("arrays_id").innerHTML = document.getElementById("arrays_id").innerHTML + arrayArray[i] + "<br>";
+        i = i + 1;
+        }
+        
+        }
+      }
+      
+      //clears bigger array and removes listed arrays
+      
+      function clearArray(){
+            arrayArray = [];
+            document.getElementById("explainer_id").innerHTML = "";
+            document.getElementById("arrays_id").innerHTML = "";
+        }
+        
+      //START array sorting functions
+      //the next 8 functions do 1 of 2 things
+      //functions starting with "sort" sort move either the perimeter or area slot to the front, and then sort by ascending or descending
+      //the 3 letter functions run the sort functions twice, which moves the perimeter/area slots back to their original positions while keeping the ascending/descending order
+      
+      function sortPerimAscending(){
+        var i = 0;
+        var tempArray = [];
+        while(i < arrayArray.length){
+        tempArray = arrayArray;
+        var newArray = tempArray[i][0];
+        tempArray[i][0] = arrayArray[i][1];
+        tempArray[i][1] = newArray;
+        i = i + 1;
+        }
+        
+        tempArray = tempArray.sort(function(a,b) {return parseInt(a[0]) > parseInt(b[0]);});
+        document.getElementById("arrays_id").innerHTML = "";
+        i = 0;
+        while(i < arrayArray.length){
+        document.getElementById("arrays_id").innerHTML = document.getElementById("arrays_id").innerHTML + tempArray[i] + "<br>";
+        i = i + 1;
+        }
+      }
+      
+      
+      function sPA(){
+        sortPerimAscending();
+        sortPerimAscending();
+      }
+      
+      
+      function sortPerimDescending(){
+        var i = 0;
+        var tempArray = [];
+        while(i < arrayArray.length){
+        tempArray = arrayArray;
+        var newArray = tempArray[i][0];
+        tempArray[i][0] = arrayArray[i][1];
+        tempArray[i][1] = newArray;
+        i = i + 1;
+        }
+        
+        tempArray = tempArray.sort(function(a,b) {return parseInt(a[0]) < parseInt(b[0]);});
+        document.getElementById("arrays_id").innerHTML = "";
+        i = 0;
+        while(i < arrayArray.length){
+        document.getElementById("arrays_id").innerHTML = document.getElementById("arrays_id").innerHTML + tempArray[i] + "<br>";
+        i = i + 1;
+        }
+      }
+      
+      function sPD(){
+        sortPerimDescending();
+        sortPerimDescending();
+      }
+      
+      function sortAreaAscending(){
+        var i = 0;
+        var tempArray = [];
+        while(i < arrayArray.length){
+        tempArray = arrayArray;
+        var newArray = tempArray[i][0];
+        tempArray[i][0] = arrayArray[i][2];
+        tempArray[i][2] = newArray;
+        i = i + 1;
+        }
+        
+        tempArray = tempArray.sort(function(a,b) {return parseInt(a[0]) > parseInt(b[0]);});
+        document.getElementById("arrays_id").innerHTML = "";
+        i = 0;
+        while(i < arrayArray.length){
+        document.getElementById("arrays_id").innerHTML = document.getElementById("arrays_id").innerHTML + tempArray[i] + "<br>";
+        i = i + 1;
+        }
+      }
+      
+      function sAA(){
+        sortAreaAscending();
+        sortAreaAscending();
+      }
+      
+      function sortAreaDescending(){
+        var i = 0;
+        var tempArray = [];
+        while(i < arrayArray.length){
+        tempArray = arrayArray;
+        var newArray = tempArray[i][0];
+        tempArray[i][0] = arrayArray[i][2];
+        tempArray[i][2] = newArray;
+        i = i + 1;
+        }
+        
+        tempArray = tempArray.sort(function(a,b) {return parseInt(a[0]) < parseInt(b[0]);});
+        document.getElementById("arrays_id").innerHTML = "";
+        i = 0;
+        while(i < arrayArray.length){
+        document.getElementById("arrays_id").innerHTML = document.getElementById("arrays_id").innerHTML + tempArray[i] + "<br>";
+        i = i + 1;
+        }
+      }
+      
+      function sAD(){
+        sortAreaDescending();
+        sortAreaDescending();
+      }
+      
+      //END array sorting functions
+      
+          //hides all textboxes and buttons
+          
+         function clearAll(){
+            document.getElementById("Box1").style.visibility="hidden";
+            document.getElementById("Box1").value = "";
+            document.getElementById("Box1").placeholder="";
+            document.getElementById("Box2").style.visibility="hidden";
+            document.getElementById("Box2").value = "";
+            document.getElementById("Box2").placeholder="";
+            document.getElementById("Box3").style.visibility="hidden";
+            document.getElementById("Box3").value = "";
+            document.getElementById("Box3").placeholder="";
+            document.getElementById("Box4").style.visibility="hidden";
+            document.getElementById("Box4").value = "";
+            document.getElementById("Box4").placeholder="";
+            document.getElementById("Box5").style.visibility="hidden";
+            document.getElementById("Box5").value = "";
+            document.getElementById("Box5").placeholder="";
+            document.getElementById("BoxName").style.visibility = "hidden";
+            document.getElementById("BoxName").value  = "";
+            document.getElementById("BoxName").placeholder="Label your shape with a name";
+            document.getElementById("BoxArea").value  = "";
+            document.getElementById("BoxPerimeter").value  = ""; 
+            document.getElementById("BoxPerimeter").style.visibility = "hidden";
+            document.getElementById("BoxArea").style.visibility = "hidden";
+            document.getElementById("ButtonSave").style.visibility = "hidden";
+            document.getElementById("ButtonCalculate").style.visibility = "hidden";
+        }
+        
+        //resets values of textboxes
+        
+        function clearValues(){
+            document.getElementById("Box1").value = "";
+            document.getElementById("Box2").value = "";
+            document.getElementById("Box3").value = "";
+            document.getElementById("Box4").value = "";
+            document.getElementById("Box5").value = "";
+            document.getElementById("BoxName").value  = "";
+            if(document.getElementById("2dshapes_id").value == "2D Shapes"){
+            document.getElementById("BoxArea").value  = "Volume";
+            document.getElementById("BoxPerimeter").value  = "Surface Area";
+            }
+            else{
+            document.getElementById("BoxArea").value  = "Area";
+            document.getElementById("BoxPerimeter").value  = "Perimeter";
+            }
+        }
+        
+        
+        //shapeDefault2d and 3d are general functions that make certain text boxes/buttons always appear no matter what shape is clicked
+        
+        function shapeDefault2d(){
+        clearAll();
+        document.getElementById("options_id").style.visibility = "visible";
+        document.getElementById("BoxName").style.visibility = "visible";
+        document.getElementById("BoxPerimeter").style.visibility = "visible";
+        document.getElementById("BoxArea").style.visibility = "visible";
+        document.getElementById("BoxPerimeter").value = "Perimeter";
+        document.getElementById("BoxArea").value = "Area";
+        document.getElementById("ButtonCalculate").style.visibility = "visible";
+        document.getElementById("ButtonSave").style.visibility = "visible";
+        document.getElementById("ButtonCalculate").onclick = calculate2d;
+        }
+        
+        function shapeDefault3d(){
+        clearAll();
+        document.getElementById("options_id").style.visibility = "visible";
+        document.getElementById("BoxName").style.visibility = "visible";
+        document.getElementById("BoxPerimeter").style.visibility = "visible";
+        document.getElementById("BoxArea").style.visibility = "visible";
+        document.getElementById("BoxPerimeter").value = "Surface Area";
+        document.getElementById("BoxArea").value = "Volume";
+        document.getElementById("ButtonCalculate").style.visibility = "visible";
+        document.getElementById("ButtonSave").style.visibility = "visible";
+        document.getElementById("ButtonCalculate").onclick = calculate3d;
+        }
+        
+        //2D initiation functions: brings up different amount of boxes for each 2d shape
+        
+        function circle(){
+        shapeDefault2d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Radius";
+        }
+        
+        function square(){
+        shapeDefault2d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Side";
+        }
+        
+        function rectangle(){
+        shapeDefault2d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Length";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Width";
+        }
+        
+        function triangle(){
+        shapeDefault2d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Side 1";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Side 2";
+        document.getElementById("Box3").style.visibility = "visible";
+        document.getElementById("Box3").placeholder = "Base";
+        document.getElementById("Box4").style.visibility = "visible";
+        document.getElementById("Box4").placeholder = "Height";
+        }
+        
+        function rightTriangle(){
+        shapeDefault2d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Base";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Height";
+        }
+        
+        function rPolygon(){
+        shapeDefault2d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Number of Sides";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Side Length";
+        document.getElementById("Box3").style.visibility = "visible";
+        document.getElementById("Box3").placeholder = "Apothem";
+        }
+        
+        function rhombus(){
+        shapeDefault2d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Side";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "First Diagonal";
+        document.getElementById("Box3").style.visibility = "visible";
+        document.getElementById("Box3").placeholder = "Second Diagonal";
+        }
+        
+        function trapezoid(){
+        shapeDefault2d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Small Base";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Big Base";
+        document.getElementById("Box3").style.visibility = "visible";
+        document.getElementById("Box3").placeholder = "Side 1";
+        document.getElementById("Box4").style.visibility = "visible";
+        document.getElementById("Box4").placeholder = "Side 2";
+        document.getElementById("Box5").style.visibility = "visible";
+        document.getElementById("Box5").placeholder = "Height";
+        }
+        //2D initiation end
+        
+        //3D initiation start
+        
+        function sphere(){
+        shapeDefault3d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Radius";
+        }
+        
+        function cube(){
+        shapeDefault3d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Side";
+        }
+        
+        function rectangularprism(){
+        shapeDefault3d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Length";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Width";
+        document.getElementById("Box3").style.visibility = "visible";
+        document.getElementById("Box3").placeholder = "Height";
+        }
+
+        function pyramid(){
+        shapeDefault3d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Base Length";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Base Width";
+        document.getElementById("Box3").style.visibility = "visible";
+        document.getElementById("Box3").placeholder = "Height";
+        }
+
+        function cone(){
+        shapeDefault3d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Radius";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Height";
+        }
+
+        function cylinder(){
+        shapeDefault3d();
+        document.getElementById("Box1").style.visibility = "visible";
+        document.getElementById("Box1").placeholder = "Radius";
+        document.getElementById("Box2").style.visibility = "visible";
+        document.getElementById("Box2").placeholder = "Height";
+        }
+        
+        //3D initiation end
+        
+//changing textboxes for 2d shapes
+        
+        function shapes2d(item){
+    if(item.value=="circle"){
+        document.getElementById("3dshapes_id").value = "3D Shapes";
+        circle();
+    }
+    else if(item.value=="square"){
+        document.getElementById("3dshapes_id").value = "3D Shapes";
+        square();
+    }
+    else if(item.value == "rectangle"){
+        document.getElementById("3dshapes_id").value = "3D Shapes";
+        rectangle();
+    }
+    else if(item.value == "triangle"){
+        document.getElementById("3dshapes_id").value = "3D Shapes";
+        triangle();
+    }
+    else if(item.value == "rightTriangle"){
+        document.getElementById("3dshapes_id").value = "3D Shapes";
+        rightTriangle();
+    }
+    else if(item.value == "rpolygon"){
+        document.getElementById("3dshapes_id").value = "3D Shapes";
+        rPolygon();
+    }
+    else if(item.value == "rhombus"){
+        document.getElementById("3dshapes_id").value = "3D Shapes";
+        rhombus();
+    }
+    else if(item.value == "trapezoid"){
+        document.getElementById("3dshapes_id").value = "3D Shapes";
+        trapezoid();
+    }
+}
+
+//changing textboxes for 3d shapes
+
+        function shapes3d(){
+    if(document.getElementById("3dshapes_id").value =="sphere"){
+        document.getElementById("2dshapes_id").value ="2D Shapes";
+        sphere();
+    }
+    else if(document.getElementById("3dshapes_id").value =="cube"){
+        document.getElementById("2dshapes_id").value ="2D Shapes";
+        cube();
+    }
+    else if(document.getElementById("3dshapes_id").value =="rectangularprism"){
+        document.getElementById("2dshapes_id").value ="2D Shapes";
+        rectangularprism();
+    }
+    else if(document.getElementById("3dshapes_id").value =="pyramid"){
+        document.getElementById("2dshapes_id").value ="2D Shapes";
+        pyramid();
+    }
+    else if(document.getElementById("3dshapes_id").value =="cone"){
+        document.getElementById("2dshapes_id").value ="2D Shapes";
+        cone();
+    }
+    else if(document.getElementById("3dshapes_id").value =="cylinder"){
+        document.getElementById("2dshapes_id").value ="2D Shapes";
+        cylinder();
+    }
+}
+
+//all calculations for 2d shapes
+
+function calculate2d(){
+    if(document.getElementById("2dshapes_id").value=="circle"){
+        var r = document.getElementById("Box1").value;
+        document.getElementById("BoxPerimeter").value = 2*Math.PI*parseFloat(r);
+        document.getElementById("BoxArea").value = Math.PI*Math.pow(parseFloat(r),2);
+    }
+    else if(document.getElementById("2dshapes_id").value=="square"){
+        var s = document.getElementById("Box1").value;
+        document.getElementById("BoxPerimeter").value = parseFloat(s)*4;
+        document.getElementById("BoxArea").value = Math.pow(s,2);
+    }
+    else if(document.getElementById("2dshapes_id").value=="rectangle"){
+        var x = document.getElementById("Box1").value;
+        var y = document.getElementById("Box2").value;
+        document.getElementById("BoxPerimeter").value = 2*parseFloat(x) + 2*parseFloat(y);
+        document.getElementById("BoxArea").value = parseFloat(x)*parseFloat(y);
+    }
+    else if(document.getElementById("2dshapes_id").value=="triangle"){
+        var x = document.getElementById("Box1").value;
+        var y = document.getElementById("Box2").value;
+        var b = document.getElementById("Box3").value;
+        var h = document.getElementById("Box4").value;
+        document.getElementById("BoxPerimeter").value = parseFloat(x) + parseFloat(y) + parseFloat(b);
+        document.getElementById("BoxArea").value = (parseFloat(b)*parseFloat(h))/2;
+    }
+    else if(document.getElementById("2dshapes_id").value=="rightTriangle"){
+        var b = document.getElementById("Box1").value;
+        var h = document.getElementById("Box2").value;
+        document.getElementById("BoxPerimeter").value = parseFloat(h) + parseFloat(b) + parseFloat(Math.sqrt(( Math.pow(h,2) + Math.pow(b,2) )));
+        document.getElementById("BoxArea").value = (parseFloat(b)*parseFloat(h))/2;
+    }
+    else if(document.getElementById("2dshapes_id").value=="rpolygon"){
+        var ns = document.getElementById("Box1").value;
+        var sl = document.getElementById("Box2").value;
+        var ap = document.getElementById("Box3").value;
+        document.getElementById("BoxPerimeter").value = parseFloat(ns)*parseFloat(sl);
+        document.getElementById("BoxArea").value = ( parseFloat(ap)*parseFloat(sl)*parseFloat(ns) )/2;
+    }
+    else if(document.getElementById("2dshapes_id").value=="rhombus"){
+        var a = document.getElementById("Box1").value;
+        var p = document.getElementById("Box2").value;
+        var q = document.getElementById("Box3").value;
+        document.getElementById("BoxPerimeter").value = 4*parseFloat(a);
+        document.getElementById("BoxArea").value = (parseFloat(p)*parseFloat(q))/2;
+    }
+    else if(document.getElementById("2dshapes_id").value=="trapezoid"){
+        var b1 = document.getElementById("Box1").value;
+        var b2 = document.getElementById("Box2").value;
+        var s1 = document.getElementById("Box3").value;
+        var s2 = document.getElementById("Box4").value;
+        var h = document.getElementById("Box5").value;
+        document.getElementById("BoxPerimeter").value = parseFloat(b1) + parseFloat(b2) + parseFloat(s1) + parseFloat(s2);
+        document.getElementById("BoxArea").value = ((parseFloat(b1) + parseFloat(b2))/2)*parseFloat(h);
+    }
+}
+
+//all calculations for 3d shapes
+
+function calculate3d(){
+    if(document.getElementById("3dshapes_id").value=="sphere"){
+        var r = document.getElementById("Box1").value;
+        document.getElementById("BoxPerimeter").value = 4*Math.PI*Math.pow(parseFloat(r),2);
+        document.getElementById("BoxArea").value = (4/3)*Math.PI*Math.pow(parseFloat(r),3);
+    }
+    else if(document.getElementById("3dshapes_id").value=="cube"){
+        var s = document.getElementById("Box1").value;
+        document.getElementById("BoxPerimeter").value = 6*Math.pow(parseFloat(s),2);
+        document.getElementById("BoxArea").value = Math.pow(parseFloat(s),3);
+    }
+    else if(document.getElementById("3dshapes_id").value=="rectangularprism"){
+        var l= document.getElementById("Box1").value;
+        var w = document.getElementById("Box2").value;
+        var h = document.getElementById("Box3").value;
+        document.getElementById("BoxPerimeter").value = 2*(parseFloat(w)*parseFloat(l)+parseFloat(h)*parseFloat(l)+parseFloat(h)*parseFloat(w));
+        document.getElementById("BoxArea").value = parseFloat(w)*parseFloat(l)*parseFloat(h);
+    }
+    else if(document.getElementById("3dshapes_id").value=="pyramid"){
+        var x= document.getElementById("Box1").value;
+        var y = document.getElementById("Box2").value;
+        var a = document.getElementById("Box3").value;
+        document.getElementById("BoxPerimeter").value = x * y + parseFloat(x) * ( Math.sqrt(Math.pow(y / 2,2) + Math.pow(a,2) ) )   + parseFloat(y) * (Math.sqrt(Math.pow(x / 2,2) + Math.pow(a,2) ) )     ;
+        document.getElementById("BoxArea").value = (parseFloat(x)*parseFloat(y)*parseFloat(a))/3;
+    }
+    else if(document.getElementById("3dshapes_id").value=="cone"){
+        var r = document.getElementById("Box1").value;
+        var h = document.getElementById("Box2").value;
+        document.getElementById("BoxPerimeter").value = Math.PI * parseFloat(r) * (parseFloat(r) + Math.sqrt(Math.pow(h,2) + Math.pow(r,2)) );
+        document.getElementById("BoxArea").value = Math.PI * Math.pow(r,2) * parseFloat(h)/3;
+    }
+    else if(document.getElementById("3dshapes_id").value=="cylinder"){
+        var r = document.getElementById("Box1").value;
+        var h = document.getElementById("Box2").value;
+        document.getElementById("BoxPerimeter").value = 2*Math.PI*parseFloat(r)*parseFloat(h) + 2*Math.PI*Math.pow(parseFloat(r),2);
+        document.getElementById("BoxArea").value = Math.PI*Math.pow(parseFloat(r),2)*parseFloat(h);
+    }
+
+}
+
+//END math functions, START extra stuff
+
+//shows/hides list of options
+
+function options(){
+   if(document.getElementById("span_id").style.visibility == "hidden"){
+   document.getElementById("span_id").style.visibility = "visible";
+   document.getElementById("options_id").value = "Extras -";
+   }
+   else if(document.getElementById("span_id").style.visibility == "visible"){
+   document.getElementById("span_id").style.visibility = "hidden";
+   document.getElementById("options_id").value = "Extras +";
+   }
+}
+
+//functions to change/disable background image
+
+function backgroundChange(){
+    document.getElementById("bodyID").style.backgroundImage = "url('" + document.getElementById("background_changer").value + "')";
+}
+
+function backgroundDisable(){
+    if(document.getElementById("background_disable").value == "Disable Background"){
+    document.getElementById("bodyID").style.backgroundImage = "url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png')";
+    document.getElementById("background_disable").value = "Enable Background";
+    document.getElementById("background_disable").setAttribute("style","background-color:#50C57E;width:10%;");
+    }
+    else{
+    document.getElementById("bodyID").style.backgroundImage = "url('http://superwall.us/wallpaper/colors_hd_simple_solid_plain_abstract_hd-wallpaper-gqor.jpg')";
+    document.getElementById("background_disable").value = "Disable Background";
+    document.getElementById("background_disable").setAttribute("style","background-color:#F4707D;width:10%;");
+    }
+}
+
+//shows/hides list of conjectures
+
+function conjectures(){
+    if(document.getElementById("conjectureButton").value == "Show Conjectures"){
+    document.getElementById("conjectureButton").value = "Hide Conjectures";
+    document.getElementById("conjectures_id").style.visibility="visible";
+    }
+    else{
+    document.getElementById("conjectureButton").value = "Show Conjectures";
+    document.getElementById("conjectures_id").style.visibility="hidden";
+    }
+}
+
+
+    </script>
+    </head>
+    <body id="bodyID" background="http://superwall.us/wallpaper/colors_hd_simple_solid_plain_abstract_hd-wallpaper-gqor.jpg" >
+    
+        <center>
+            <h1>Assignment #5: Javascript Revisited</h1>
+        
+         <select name = "2dshapes" style="width:25%" id = "2dshapes_id" onchange="shapes2d(this);"> 
+        <option selected = "selected">2D Shapes</option>
+        <option value = "circle">Circle</option>
+        <option value = "square">Square</option>
+        <option value = "rectangle">Rectangle</option>
+        <option value = "triangle">Triangle</option>
+        <option value = "rightTriangle">Right Triangle</option>
+        <option value = "rpolygon">Regular Polygon</option>
+        <option value = "rhombus">Rhombus</option>
+        <option value = "trapezoid">Trapezoid</option>
+ </select>
+         
+        <select name = "3dshapes" style="width:25%" id = "3dshapes_id" onchange="shapes3d();"> 
+        <option selected = "selected">3D Shapes</option>
+        <option value = "sphere">Sphere</option>
+        <option value = "cube">Cube</option>
+        <option value = "rectangularprism">Rectangular Prism</option>
+        <option value = "pyramid">Pyramid</option>
+        <option value = "cone">Cone</option>
+        <option value = "cylinder">Cylinder</option>
+ </select>
+                  
+        <input type = "button" style="background-color:#F4707D;" id = "ButtonClear" value = "Clear Values" onclick="clearValues();"/>
+        <input type = "button" style="background-color:#F4707D;" id = "ButtonClearArray" value = "Clear List" onclick="clearArray();"/>
+        
+        <br>
+        <input type = "text" style = "width:25%;visibility:hidden" id = "BoxName" placeholder = "Label your shape with a name"/>
+        <br>
+        <input type = "text" style = "width:25%;visibility:hidden" id = "Box1" placeholder = ""/>
+        <br>
+        <input type = "text" style = "width:25%;visibility:hidden" id = "Box2" placeholder = """/>     
+        <br>
+        <input type = "text" style = "width:25%;visibility:hidden" id = "Box3" placeholder = ""/>       
+        <br>
+        <input type = "text" style = "width:25%;visibility:hidden" id = "Box4" placeholder = ""/>      
+        <br>
+        <input type = "text" style = "width:25%;visibility:hidden" id = "Box5" placeholder = ""/>       
+        <br>
+        <input type = "text" style = "width:25%;visibility:hidden" id = "BoxPerimeter" value = "Perimeter"/>
+        <input type = "text" style = "width:25%;visibility:hidden" id = "BoxArea" value = "Area"/>
+        <br>
+        <input type = "button" style = "width:25%;background-color:#8A96F2;visibility:hidden" id = "ButtonCalculate" value = "Calculate" onclick = ""/>
+        <input type = "button" style = "width:25%;background-color:#50C57E;visibility:hidden" id = "ButtonSave" value = "Save to List" onclick = "saveArray();"/>
+        <br>
+        <input type="button" style="width:10%;background-color:#E5AE8E;visibility:hidden" id="options_id" value="Extras +" onclick="options()"/>
+        <br>
+        <span style="visibility:hidden" id="span_id">
+        <input type = "button" style = "width:10%;background-color:#8A96F2;" value = "Sort by Perim Ascending" onclick = "sPA();">
+        <input type = "button" style = "width:10%;background-color:#8A96F2;" value = "Sort by Perim Descending" onclick = "sPD();">
+        <input type = "button" style = "width:10%;background-color:#50C57E;" value = "Sort by Area Ascending" onclick = "sAA();">
+        <input type = "button" style = "width:10%;background-color:#50C57E;" value = "Sort by Area Descending" onclick = "sAD();">
+        <br>
+        <input type = "button" style = "width:10%;background-color:#E5AE8E;" id = "conjectureButton" value = "Show Conjectures" onclick = "conjectures();">
+        <input type = "button" style = "width:10%;background-color:#F4707D;" id ="background_disable" value = "Disable Background" onclick = "backgroundDisable();">
+        <br>
+        <input type = "text" style = "width:40%" id = "background_changer" placeholder = "Insert URL for custom background"/>
+        <input type = "button" style = "width:10%;background-color:#E5AE8E;" id ="background_changerbutton" value = "Change!" onclick = "backgroundChange();">
+        </span>
+        
+        </center>
+        <div id="explainer_id"></div>
+        <div id="arrays_id">
+        </div>
+        <center>
+            <div id="conjectures_id" style = "visibility:hidden">
+            For all equivalent n-sided polygons, the regular polygon has the smallest perimeter.
+            <br>
+Example: Compare a regular polygon with 4 sides, 5 side length and a 5 apothem to a rectangle with a length of 5 and a width of 10. Both are 50 in area.
+<br><br>
+For all equivalent triangles, the equilateral tirnagle has the smallest perimeter.
+<br>
+Example: Compare a triangle with a height of 3 and all sides 3 to a right triangle with a base and height of 3. Both are 4.5 in area.
+<br><br>
+For all equivalent quadrilaterals, the square has the smallest perimeter.
+<br>
+Example: Compare a square with a side length of 5 to a rectangle with a length of 25 and a height of 1. Both are 25 in area.
+<br><br>
+For all rectangular prisms with the same surface area, the cube is the one with the largest volume
+<br>
+Example: Compare a cube with a side length of 5 to a rectangular prism with a length of 5, a width of 3, and a height of 7.5. Both are 150 in surface area.
+<br><br>
+For all rectangular prisms with the same volume, the cube is the one with the smallest surface area.
+<br>
+Example: Compare a cube with a side length of 4 to a rectangular prism with a length of 2, a width of 4, and a height of 8. Both are 64 in volume..
+<br><br>
+For all solids with the same surface area, the sphere is the one with the largest volume.
+<br>
+Example: Compare a sphere with a radius of 6.90988 to a cube with a side length of 10. Both are about 600 in surface area.
+<br><br>
+For all solids with the same volume, the sphere is the one with the smallest surface area.
+<br>
+Example: Compare a sphere with a raidus of 1.96949 to a pyramid with a base length of 4, a base width of 8, and a height of 3. Both are about 32 in volume.
+        </div>
+        </center>
+    
+    </body>
+    
+    
+</html>
